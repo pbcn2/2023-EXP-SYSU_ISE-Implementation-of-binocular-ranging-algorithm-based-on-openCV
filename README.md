@@ -1,4 +1,9 @@
 # 2023-EXP-SYSU_ISE-Implementation of binocular ranging algorithm based on openCV
+
+本项目已经全部托管在了GitHub，诚邀您浏览并给予宝贵的意见
+
+https://github.com/pbcn2/2023-EXP-SYSU_ISE-Implementation-of-binocular-ranging-algorithm-based-on-openCV
+
 > This project uses MATLAB and python-based openCV to implement binocular ranging. Specifically, the camera is calibrated through stereo camera calibration in MATLAB, and then openCV is used for stereo correction, and then the disparity map is calculated on the corrected image to obtain Depth map. WLS filtering is used for optimization.
 
 ## 结果展示：
@@ -48,11 +53,11 @@
 
 **运行效果展示：**
 
-![相机标定界面.png](https://s2.loli.net/2023/09/26/8j2Bfb4eINTogwO.png)
+<img src="https://s2.loli.net/2023/09/26/8j2Bfb4eINTogwO.png" alt="相机标定界面.png" style="zoom:50%;" />
 
-![相机标定2.png](https://s2.loli.net/2023/09/26/nNzaGjP43E5Asei.png)
+<img src="https://s2.loli.net/2023/09/26/nNzaGjP43E5Asei.png" alt="相机标定2.png" style="zoom: 50%;" />
 
-![相机标定属性.png](https://s2.loli.net/2023/09/26/Eo5CNcwlfU9eF2J.png)
+<img src="https://s2.loli.net/2023/09/26/Eo5CNcwlfU9eF2J.png" alt="相机标定属性.png" style="zoom: 50%;" />
 
 考虑到后期是利用基于python的openCV进行后续操作，因此需要把适用于MATLAB的mat文件转为openCV适用的格式。经过查阅官方手册，了解到openCV可以直接读取一种特定的YAML文件，因此想要将mat文件转换成YAML格式，但是在这一步遇到了很大阻力。
 
@@ -231,6 +236,8 @@ def stereo_image_rectification(left_image, right_image, stereo_params):
 
 ![Figure_1.png](https://s2.loli.net/2023/09/26/v6Xz42GSUyDjRge.png)
 
+可以以棋盘格的格子角为准，观察，矫正以后图像的每一行都是对齐的。
+
 
 
 
@@ -352,6 +359,10 @@ def compute_disparity_and_depth(left_rectified, right_rectified):
 
 <font color=purple>存在的问题：</font>可以观察到，生成的视差图和深度图均有很多点计算有误，出现这一情况的原因是因为，部分区域几乎没有表面纹理，因此当SGBM算法进行匹配的时候，各个点都很相似，导致很多点匹配不准确。在小视差点如果误判成了大视差点，就会将原来的远点计算成近点。反过来也是同理。
 
+
+
+
+
 ### 优化方案——wls滤波器
 
 针对存在的问题，我尝试了很多方法去解决，尝试预习资料提问中同学们提到过的限制匹配窗口的大小的方法，但是这个图片的特殊性在于相似点都集中在目标点很近且很密集，因此限制窗口的效果并不好。
@@ -377,6 +388,36 @@ https://www.cnblogs.com/polly333/p/5130375.html
 Edge-Preserving Decompositions for Multi-Scale Tone and Detail Manipulation
 
 https://blog.csdn.net/u014230360/article/details/107639764
+
+
+
+## 版权声明（Copyright Notice）
+
+本仓库的代码使用 **GNU General Public License v3.0 (GPL v3)** 协议，版权受到法律保护。
+
+如果你希望参考或者修改本仓库的代码，你需要：
+
+1. 将你的修改后的代码也开源
+2. 为新增代码采用相同的 GPL v3 协议
+3. 在你的项目的显著位置标识代码来源于本仓库
+
+谢谢你的理解和尊重！
+
+
+
+The code in this repository is under the **GNU General Public License v3.0 (GPLv3)**. This means that the copyright is protected by law.
+
+If you wish to reference or modify the code in this repository, you are required to:
+
+1. Open source your modified code.
+2. Use the same GPLv3 license for new code.
+3. Indicate clearly in your project that the code is derived from this repository.
+
+Thank you for your understanding and respect. 
+
+
+
+Contact me if you need more help： [![Gmail Badge](https://img.shields.io/badge/-Gmail-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:sumyggsun@gmail.com)](mailto:pbcn2secure@gmail.com)
 
 
 
