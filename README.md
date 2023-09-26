@@ -1,0 +1,2 @@
+# 2023-EXP-SYSU_ISE-Implementation of binocular ranging algorithm based on openCV
+ This project uses MATLAB and python-based openCV to implement binocular ranging. Specifically, the camera is calibrated through stereo camera calibration in MATLAB, and then openCV is used for stereo correction, and then the disparity map is calculated on the corrected image to obtain Depth map. WLS filtering is used for optimization.
