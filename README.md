@@ -3,7 +3,7 @@
 
 ## 结果展示：
 
-![result](https://pic.imgdb.cn/item/6512de2dc458853aeff6cc52.png)
+![result.png](https://s2.loli.net/2023/09/26/PNcLveJygt7kGYT.png)
 
 ## 项目结构概览
 
@@ -48,11 +48,11 @@
 
 **运行效果展示：**
 
-<img src="https://pic.imgdb.cn/item/6512de68c458853aeff6d721.png" alt="stereo camera calibration APP" style="zoom: 50%;" />
+![相机标定界面.png](https://s2.loli.net/2023/09/26/8j2Bfb4eINTogwO.png)
 
-<img src="https://pic.imgdb.cn/item/6512de67c458853aeff6d70d.png" alt="stereo camera calibration result" style="zoom: 33%;" />
+![相机标定2.png](https://s2.loli.net/2023/09/26/nNzaGjP43E5Asei.png)
 
-<img src="https://pic.imgdb.cn/item/6512de68c458853aeff6d72f.png" alt="stereoParameters" style="zoom:33%;" />
+![相机标定属性.png](https://s2.loli.net/2023/09/26/Eo5CNcwlfU9eF2J.png)
 
 考虑到后期是利用基于python的openCV进行后续操作，因此需要把适用于MATLAB的mat文件转为openCV适用的格式。经过查阅官方手册，了解到openCV可以直接读取一种特定的YAML文件，因此想要将mat文件转换成YAML格式，但是在这一步遇到了很大阻力。
 
@@ -229,7 +229,7 @@ def stereo_image_rectification(left_image, right_image, stereo_params):
 
 为`stereo_image_rectification`函数添加一些辅助代码以后就可以看到效果图：
 
-![rectification_result](https://pic.imgdb.cn/item/6512df04c458853aeff6f656.png)
+![Figure_1.png](https://s2.loli.net/2023/09/26/v6Xz42GSUyDjRge.png)
 
 
 
@@ -247,7 +247,7 @@ SGBM的思路是：
 
 能量函数形式如下：
 
-![img](https://images0.cnblogs.com/blog2015/466153/201508/201952551915334.png)
+![201952551915334.png](https://s2.loli.net/2023/09/26/IlRXhfBHVktwsGa.png)
 
 `D`指`disparity map`。`E(D)`是该`disparity map`对应的能量函数。
 
@@ -267,11 +267,11 @@ SGBM的思路是：
 
 考虑从左到右这一方向，如下图所示：
 
-![img](https://images0.cnblogs.com/blog2015/466153/201508/202009090357514.jpg)
+![202009090357514.jpg](https://s2.loli.net/2023/09/26/qFvr8ExwAL4obac.jpg)
 
 则每个像素的`disparity`只和其左边的像素相关，有如下公式：
 
-![img](https://images0.cnblogs.com/blog2015/466153/201508/211012485664034.png)
+![211012485664034.png](https://s2.loli.net/2023/09/26/HhrPuGWRCdpXJfK.png)
 
 `r`指某个指向当前像素p的方向，在此可以理解为像素`p`左边的相邻像素。
 `Lr(p, d)` 表示沿着当前方向（即从左向右），当目前像素`p`的`disparity`取值为d时，其最小`cost`值。
@@ -290,9 +290,9 @@ SGBM的思路是：
 
 `C(p, d)`的计算很简单，由如下两个公式计算：
 
-![img](https://images0.cnblogs.com/blog2015/466153/201508/202010419413499.png)
+![4.png](https://s2.loli.net/2023/09/26/f54xBF8VqgAIznN.png)
 
-![img](https://images0.cnblogs.com/blog2015/466153/201508/202010470033144.png)
+![5.png](https://s2.loli.net/2023/09/26/4mRnN8zLQIdXaUg.png)
 
 即，当前像素`p`和移动`d`之后的像素`q`之间，经过半个像素插值后，寻找两个像素点灰度或者RGB差值的最小值，作为`C(p, d)`的值。
 
@@ -304,11 +304,11 @@ SGBM的思路是：
 
 然后把八个方向上的`cost`值累加，选取累加`cost`值最小的`disparity`值作为该像素的最终`disparity`值。对于每个像素进行该操作后，就形成了整个图像的`disparity map`。公式表达如下：
 
-![img](https://images0.cnblogs.com/blog2015/466153/201508/202011265661432.png)
+![6.png](https://s2.loli.net/2023/09/26/7gxZAvb6HpGns4Y.png)
 
 SGBM算法遍历每个像素，针对每个像素的操作和`disparity`的范围有关，故时间复杂度为：
 
-![img](https://images0.cnblogs.com/blog2015/466153/201508/202011568005667.png)
+![7.png](https://s2.loli.net/2023/09/26/MlyAh56uDWFqd42.png)
 
 在视差图的基础上，利用`depth = f * T / (disparity + 0.00001) `将视差图转换成深度图
 
