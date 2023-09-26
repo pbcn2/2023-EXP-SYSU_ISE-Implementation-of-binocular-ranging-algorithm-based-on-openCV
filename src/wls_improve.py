@@ -54,6 +54,7 @@ def compute_disparity_with_wls_filter(left_rectified, right_rectified):
     stereo_right = cv2.ximgproc.createRightMatcher(stereo)
     disparity_right = stereo_right.compute(right_rectified, left_rectified).astype(np.float32) / 16.0
 
+    
     # WLS filter parameters
     lmbda = 8000
     sigma = 1.5
@@ -79,7 +80,7 @@ disparity_map, depth_map = compute_disparity_and_depth(left_image_rectified, rig
 disparity_wls_map = compute_disparity_with_wls_filter(left_image_rectified, right_image_rectified)
 
 # Plotting the results
-fig, axes = plt.subplots(1, 3, figsize=(15, 7))
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
 
 # Displaying original disparity map
 axes[0].imshow(disparity_map, cmap='jet')
@@ -94,4 +95,16 @@ axes[2].imshow(left_image_rectified, cmap='gray')
 axes[2].set_title("Original Image")
 
 plt.tight_layout()
+plt.show()
+
+
+f = 900  # example value in pixels
+T = 0.123  # example value in meters
+# Compute depth map based on WLS filtered disparity map
+depth_wls_map = f * T / (disparity_wls_map + 0.00001)  # adding a small value to avoid division by zero
+# Plotting the WLS based depth map in a new figure
+plt.figure(figsize=(8, 6))
+plt.imshow(depth_wls_map, cmap='jet_r')
+plt.title("WLS Depth Map")
+plt.colorbar(label="Depth")
 plt.show()

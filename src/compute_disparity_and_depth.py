@@ -44,7 +44,7 @@ right_image_rectified = cv2.imread(right_rectified_path, cv2.IMREAD_GRAYSCALE)
 disparity_map, depth_map = compute_disparity_and_depth(left_image_rectified, right_image_rectified)
 
 # Plotting the results
-fig, axes = plt.subplots(1, 3, figsize=(15, 7))
+fig, axes = plt.subplots(1, 3, figsize=(12, 4))
 
 # Displaying disparity map
 axes[0].imshow(disparity_map, cmap='jet')
