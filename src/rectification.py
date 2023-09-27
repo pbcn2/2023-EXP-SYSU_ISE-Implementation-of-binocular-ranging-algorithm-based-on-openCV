@@ -85,5 +85,5 @@ def main():
     # Perform rectification and display results
     test_rectification(left_image_path, right_image_path, stereo_params)
 
-# Uncomment the below line to run the main function directly
+
 main()

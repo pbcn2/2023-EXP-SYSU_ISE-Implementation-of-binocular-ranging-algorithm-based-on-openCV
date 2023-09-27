@@ -22,10 +22,8 @@ def compute_disparity_and_depth(left_rectified, right_rectified):
     # Compute disparity image
     disparity = stereo.compute(left_rectified, right_rectified).astype(np.float32) / 16.0
 
-    # Assuming you have the focal length (f) in pixel and baseline (T) in meters
-    # This is just an example value, you need to use your actual values
-    f = 900  # example value in pixels
-    T = 0.123  # example value in meters
+    f = 900  # extract & average from stereoParameters.mat
+    T = 0.123  # extract from stereoParameters.mat
 
     # Compute depth map
     depth = f * T / (disparity + 0.00001)  # adding a small value to avoid division by zero
@@ -34,8 +32,6 @@ def compute_disparity_and_depth(left_rectified, right_rectified):
     return disparity, depth
 
 # Using the adjusted rectified images to compute disparity and depth
-# left_rectified_path = "../img_file/im0.png"
-# right_rectified_path = "../img_file/im1.png"
 left_rectified_path = "../img_file/left_rectified.png"
 right_rectified_path = "../img_file/right_rectified.png"
 left_image_rectified = cv2.imread(left_rectified_path, cv2.IMREAD_GRAYSCALE)
